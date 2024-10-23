@@ -1,0 +1,64 @@
+syntax = "proto3";
+
+
+option go_package = "restaurant-service/proto";  
+
+// menu items
+enum Category {
+  UNKNOWN = 0;
+  APPETIZER = 1;
+  MAIN_COURSE = 2;
+  DESSERT = 3;
+  BEVERAGE = 4;
+  SIDE_DISH = 5;
+}
+
+
+message MenuItem {
+  string name = 1;
+  string description = 2;
+  float price = 3;
+  Category category = 4;
+  bool available = 5;
+}
+
+message Restaurant {
+  string name = 1;
+  string location = 2;
+  string contact_number = 3;
+  repeated MenuItem menu = 4;
+
+}
+
+message RestaurantList {
+  repeated Restaurant restaurants = 1;  // list of Restu messages
+}
+
+service RestaurantService {
+  rpc AddRestaurant (Restaurant) returns (Response);
+
+  rpc GetAllRestaurants (Empty) returns (RestaurantList);
+
+  rpc GetRestaurantByName (NameRequest) returns (Restaurant);
+
+  rpc GetMenuItemsByCategory (CategoryRequest) returns (MenuItemList);
+}
+
+message Empty {}
+
+message NameRequest {
+  string name = 1;
+}
+
+message CategoryRequest {
+  Category category = 1;
+}
+
+message MenuItemList {
+  repeated MenuItem items = 1;
+}
+
+message Response {
+  bool success = 1;
+  string message = 2;
+}
