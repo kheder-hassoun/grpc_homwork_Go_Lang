@@ -6,7 +6,7 @@ finding a restaurant by name, and getting menu items by category.
 
 ## Project Structure
 
-```
+``` css
 Go instance lab2
 │
 ├── proto
